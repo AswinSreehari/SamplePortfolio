@@ -6,6 +6,7 @@ import Footer from './Components/Footer/Footer';
 import FloatingElement from './Components/Footer/FloatingElement';
 import bg from './assets/Images/BG.png';
 import Loader from './Components/Loader';
+import ProjectListSection from './Components/ProjectListSection/ProjectListSection';
 
 const App = () => {
   const [loading, setLoading] = useState(true); 
@@ -26,6 +27,7 @@ const App = () => {
       >
         <HeroSection />
         <FocusAreaSection />
+        <ProjectListSection />
       </div>
       {/* <FloatingElement /> */}
       <Footer />
