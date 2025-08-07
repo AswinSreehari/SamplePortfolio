@@ -13,7 +13,7 @@ const BlurTextElement = ({ text }) => {
         animateBy="words"
         direction="top"
         onAnimationComplete={handleAnimationComplete}
-        className="text-3xl mb-8"
+        className="text-2xl mb-8 leading-10"
       />
     </div>
   );

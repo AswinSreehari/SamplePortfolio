@@ -241,7 +241,7 @@ const GLBModel = ({
         className={`flex items-center justify-center  relative right-0 bg-gray-200 ${className}`}
         style={{ width, height, ...style }}
       >
-        <p className="text-gray-500">No model to show now!</p>
+        <p className="text-white">No model to show now!</p>
       </div>
     );
   }

@@ -139,7 +139,7 @@ const Footer = () => {
                 </Tooltip>
               </TooltipProvider>
             </div>
-            <div className="flex items-center space-x-2">
+            {/* <div className="flex items-center space-x-2">
               <Sun className="h-4 w-4" />
               <Switch
                 id="dark-mode"
@@ -150,7 +150,7 @@ const Footer = () => {
               <Label htmlFor="dark-mode" className="sr-only">
                 Toggle dark mode
               </Label>
-            </div>
+            </div> */}
           </div>
         </div>
         <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t pt-8 text-center md:flex-row">

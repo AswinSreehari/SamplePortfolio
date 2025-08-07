@@ -11,7 +11,7 @@ const HeroSection = () => {
       // style={{ backgroundImage: `url(${backgroundImg})` }}
     >
       <div>
-        <Logo />
+        {/* <Logo /> */}
         <Navbar />
         <div className="flex gap-x-5">
           <TextSection />

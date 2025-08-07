@@ -1,5 +1,5 @@
 import React from 'react'
-import kpmgLogo from "../../assets/Images/KPMG Logo.png"
+import kpmgLogo from "../../assets/Images/KPMG_logo.png"
 
 const Logo = () => {
   return (

@@ -8,16 +8,24 @@ import customerImage from "../../assets/Images/4.png";
 import EmployeeExperience from "./EmployeeExperience/EmployeeExperience";
 import KnowledgeManagement from "./KnowledgeManagement/KnowledgeManagement";
 import LearningAndDevelopment from "./LearningAndDevelopment/LearningAndDevelopment";
+import bgLines from "../../assets/svg/file.svg";
+import VideoElement from "./VideoElement";
+import VideoComponent from "../VideoComponent/VideoComponent";
 
 const FocusAreaSection = () => {
   return (
-    <div className="flex flex-col overflow-hidden">
-      <ContainerScroll
+    <div
+      className="flex flex-col overflow-hidden mt-40 bg-center bg-no-repeat bg-transparent"
+      // style={{
+      //           backgroundImage:  `url(${bgLines})`,
+      //           backgroundColor: "transparent",
+      //         }}
+    >
+      {/* <ContainerScroll
         titleComponent={
           <>
             <h1 className="text-4xl font-semibold mt-60 text-black dark:text-white">
-              {/* Unleash the power of <br /> */}
-              <span className="text-4xl md:text-[6rem] font-bold mt-1 leading-none">
+               <span className="text-4xl text-white md:text-[6rem] font-bold mt-1 leading-none">
                 Focus Areas
               </span>
             </h1>
@@ -32,7 +40,14 @@ const FocusAreaSection = () => {
           className="mx-auto rounded-2xl object-cover h-full object-left-top"
           draggable={false}
         />
-      </ContainerScroll>
+      </ContainerScroll> */}
+      {/* <ScrollVideoShader /> */}
+      {/* <VideoElement /> */}
+
+      <VideoComponent />
+
+    
+
       <EnterpriseInnovation />
       <CustomerEngagement />
       <EmployeeExperience />
