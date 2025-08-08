@@ -4,12 +4,12 @@ import { Color, Scene, Fog, PerspectiveCamera, Vector3 } from "three";
 import ThreeGlobe from "three-globe";
 import { useThree, Canvas, extend, useFrame } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
-import countries from "../../data/globe.json";  
+import countries from "../../data/globe.json";
 
 extend({ ThreeGlobe });
 
 const RING_PROPAGATION_SPEED = 3;
-const cameraZ = 400;  
+const cameraZ = 400;
 
 let numbersOfRings = [0];
 
@@ -17,6 +17,7 @@ export function Globe({ globeConfig, data }) {
   const globeRef = useRef(null);
   const groupRef = useRef();
   const [isInitialized, setIsInitialized] = useState(false);
+  const [animationProgress, setAnimationProgress] = useState(0);
 
   const defaultProps = {
     pointSize: 1,
@@ -43,6 +44,45 @@ export function Globe({ globeConfig, data }) {
       setIsInitialized(true);
     }
   }, []);
+
+   useEffect(() => {
+    if (!isInitialized) return;
+
+     const delayTimeout = setTimeout(() => {
+      const startTime = Date.now();
+      const duration = 2000;  
+      const startScale = 0.1;  
+      const endScale = 1;  
+
+      const animateScale = () => {
+        const elapsed = Date.now() - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        
+         const easeOut = 1 - Math.pow(1 - progress, 3);
+        const currentScale = startScale + (endScale - startScale) * easeOut;
+        
+        setAnimationProgress(currentScale);
+
+        if (progress < 1) {
+          requestAnimationFrame(animateScale);
+        }
+      };
+
+       requestAnimationFrame(animateScale);
+    }, 5000); 
+
+    // Cleanup timeout on unmount
+    return () => {
+      clearTimeout(delayTimeout);
+    };
+  }, [isInitialized]);
+
+  // Apply scale animation to the group
+  useFrame(() => {
+    if (groupRef.current) {
+      groupRef.current.scale.set(animationProgress, animationProgress, animationProgress);
+    }
+  });
 
   // Build material when globe is initialized or when relevant props change
   useEffect(() => {
@@ -170,7 +210,7 @@ export function Globe({ globeConfig, data }) {
 }
 
 export function WebGLRendererConfig() {
-  const { gl, size, camera } = useThree(); // Added camera access for aspect update
+  const { gl, size, camera } = useThree();
 
   useEffect(() => {
     gl.setPixelRatio(window.devicePixelRatio);
@@ -179,13 +219,13 @@ export function WebGLRendererConfig() {
 
     // Handle resize to prevent distortion
     const handleResize = () => {
-      camera.aspect = size.width / size.height; // Dynamically update aspect ratio
+      camera.aspect = size.width / size.height;
       camera.updateProjectionMatrix();
       gl.setSize(size.width, size.height);
     };
 
     window.addEventListener('resize', handleResize);
-    handleResize(); // Initial call
+    handleResize();
 
     return () => window.removeEventListener('resize', handleResize);
   }, [gl, size, camera]);
@@ -197,7 +237,7 @@ export function World(props) {
   const scene = new Scene();
   scene.fog = new Fog(0xffffff, 400, 2000);
   return (
-    <Canvas scene={scene} camera={new PerspectiveCamera(50, 1, 180, 1800)}> {/* Initial aspect=1; updated dynamically */}
+    <Canvas scene={scene} camera={new PerspectiveCamera(50, 1, 180, 1800)}>
       <WebGLRendererConfig />
       <ambientLight color={props.globeConfig.ambientLight} intensity={0.6} />
       <directionalLight

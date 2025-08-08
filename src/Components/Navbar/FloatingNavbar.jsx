@@ -110,6 +110,16 @@ const FloatingNavbar = ({ className }) => {
 
   return (
     <>
+      {/* Invisible hover detection zone at the top */}
+      <div
+        className="fixed top-0 left-0 w-full h-20 z-40"
+        onMouseEnter={() => {
+          setIsHovered(true);
+          setIsVisible(true);
+        }}
+        onMouseLeave={() => setIsHovered(false)}
+      />
+
       <motion.div
         className={cn(
           "fixed top-5 inset-x-0 max-w-7xl mx-auto z-50",
@@ -129,7 +139,7 @@ const FloatingNavbar = ({ className }) => {
               src={logo}
               alt="Company Logo"
               className="h-15 w-auto cursor-pointer"
-              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} // Scroll to top for home
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             />
           </div>
 
@@ -179,7 +189,7 @@ const FloatingNavbar = ({ className }) => {
               onClick={() => setMenuOpen(false)}
             />
             
-            {/*---------------------------- Sliding menu panel ------------------------------------------------------*/}
+            {/* Sliding menu panel */}
             <motion.div
               variants={menuVariants}
               initial="hidden"
@@ -201,7 +211,7 @@ const FloatingNavbar = ({ className }) => {
                   />
                   <button
                     onClick={() => setMenuOpen(false)}
-                    className="text-white hover:text-gray-300 text-2xl"
+                    className="text-white hover:text-gray-300 text-2xl cursor-pointer"
                   >
                     <IoMdClose size={25} />
                   </button>
@@ -210,14 +220,8 @@ const FloatingNavbar = ({ className }) => {
                 {/* Menu items with scroll functionality */}
                 <div className="flex-1 p-6">
                   <nav className="space-y-6">
-                     
-                    
                     <motion.button
-                      className="block text-white text-xl font-medium hover:text-gray-300 transition-colors w-full text-left"
-                      // onClick={() => {
-                      //   scrollToSection("focus-text");
-                      //   setMenuOpen(false);
-                      // }}
+                      className="block text-white text-xl cursor-pointer font-medium hover:text-gray-300 transition-colors w-full text-left"
                       whileHover={{ x: 10 }}
                       transition={{ type: "spring", stiffness: 400, damping: 25 }}
                     >
@@ -225,11 +229,7 @@ const FloatingNavbar = ({ className }) => {
                     </motion.button>
                     
                     <motion.button
-                      className="block text-white text-xl font-medium hover:text-gray-300 transition-colors w-full text-left"
-                      // onClick={() => {
-                      //   scrollToSection("Solution-section");
-                      //   setMenuOpen(false);
-                      // }}
+                      className="block text-white text-xl cursor-pointer font-medium hover:text-gray-300 transition-colors w-full text-left"
                       whileHover={{ x: 10 }}
                       transition={{ type: "spring", stiffness: 400, damping: 25 }}
                     >
@@ -237,24 +237,14 @@ const FloatingNavbar = ({ className }) => {
                     </motion.button>
                     
                     <motion.button
-                      className="block text-white text-xl font-medium hover:text-gray-300 transition-colors w-full text-left"
+                      className="block text-white text-xl cursor-pointer font-medium hover:text-gray-300 transition-colors w-full text-left"
                       onClick={() => {
-                        // Scroll to Footer since you don't have a specific contact section
-                        const footerElement = document.querySelector('footer') || document.getElementById('contact');
-                        if (footerElement) {
-                          footerElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                        } else {
-                          // Scroll to bottom of page if no footer found
-                          window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-                        }
+                        // Fixed the duplicate onClick issue
+                        scrollToSection("contact-section");
                         setMenuOpen(false);
                       }}
                       whileHover={{ x: 10 }}
                       transition={{ type: "spring", stiffness: 400, damping: 25 }}
-                      onClick={() => {
-                        scrollToSection("contact-section");
-                        setMenuOpen(false);
-                      }}
                     >
                       Contact
                     </motion.button>

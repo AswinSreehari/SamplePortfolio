@@ -20,10 +20,11 @@ const App = () => {
     <div className="relative"> {/* Relative wrapper for positioning the loader overlay */}
       {/* Main content always renders */}
       <div 
-        className="bg-cover bg-center bg-no-repeat"
+        className="bg-cover bg-center bg-no-repeat "
         style={{
           backgroundImage: `url(${bg})`
         }}
+        //  bg-gradient-to-r from-blue-400 via-purple-500 to-pink-400
       >
         <HeroSection />
         <div id="Focus-area-section">

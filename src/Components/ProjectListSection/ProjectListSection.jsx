@@ -12,6 +12,7 @@ import image_8 from "../../assets/Images/8.png"
 import image_9 from "../../assets/Images/9.png"
 import image_10 from "../../assets/Images/10.png"
 
+
 const ProjectListSection = () => {
   const [hoveredProject, setHoveredProject] = useState(null);
 
@@ -212,13 +213,14 @@ const ProjectListSection = () => {
   };
 
   return (
-    <div className="w-full max-w-7xl mx-auto px-6 py-12">
+    <div className=" relative bottom-20 w-full max-w-7xl mx-auto px-6 py-12">
       {/* 2 columns layout */}
       <div className="project-list grid grid-cols-1 lg:grid-cols-2 gap-12">
         {projects.map((project, index) => (
           <ProjectItem key={project.id} project={project} index={index} />
         ))}
       </div>
+
     </div>
   );
 };

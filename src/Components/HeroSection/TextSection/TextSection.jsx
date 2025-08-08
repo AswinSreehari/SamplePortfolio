@@ -45,7 +45,7 @@ const TextSection = () => {
       transition: { 
         duration: 1.2, 
         ease: "easeOut",
-        delay: 0.2 // Slight delay after intelligent solutions
+        delay: 0.2  
       }
     },
   };
@@ -81,9 +81,9 @@ const TextSection = () => {
             animate={shouldAnimate ? "visible" : "hidden"}
             className="text-shadow-lg/10"
           >
-            Intelligent Solutions
+            Intelligent Solutions -
           </motion.span>
-          <span className="text-shadow-lg/10">-</span>
+          {/* <span className="text-shadow-lg/10">-</span> */}
           <motion.span
             variants={infiniteVariants}
             initial="hidden"

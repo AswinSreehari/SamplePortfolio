@@ -121,13 +121,13 @@ identity while fostering dynamic knowledge exchange and ideation.`;
   return (
     <div>
       <div id="focus-text" className="flex flex-row justify-between min-h-screen mt-60">
-        <div className="flex flex-col">
+        <div className="flex flex-col  ">
           <motion.h4
             ref={headingRef}
             initial="hidden"
-            animate={animateHeading ? "visible" : "hidden"} // Use delayed state
+            animate={animateHeading ? "visible" : "hidden"}  
             variants={leftToRightVariants}
-            className="text-6xl relative font-6rem font-bold text-white top-30 m-5 ml-15 text-shadow-lg/10"
+            className="text-6xl   relative font-6rem font-bold text-white top-30 m-5 ml-15 text-shadow-lg/10"
           >
             Enterprise Innovation
           </motion.h4>

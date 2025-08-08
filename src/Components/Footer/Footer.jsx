@@ -1,11 +1,10 @@
-"use client"
-
 import * as React from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Switch } from "@/components/ui/switch"
 import { Textarea } from "@/components/ui/textarea"
+import { motion, useInView } from "framer-motion";
 import {
   Tooltip,
   TooltipContent,
@@ -14,6 +13,7 @@ import {
 } from "@/components/ui/tooltip"
 import { Facebook, Instagram, Linkedin, Moon, Send, Sun, Twitter } from "lucide-react"
 import FloatingElement from "./FloatingElement"
+import { FaArrowUp } from "react-icons/fa";
 
 const Footer = () => {
   const [isDarkMode, setIsDarkMode] = React.useState(false)
@@ -169,6 +169,36 @@ const Footer = () => {
             </a>
           </nav>
         </div>
+        <motion.button 
+  className="shadow-[inset_0_0_0_2px_#616467] cursor-pointer absolute right-7 bottom-0 z-5   text-black px-4 py-4 rounded-full tracking-widest uppercase font-bold bg-transparent hover:bg-black hover:text-white dark:text-neutral-200 transition duration-200"
+  onClick={() => {
+    window.scrollTo({ 
+      top: 0, 
+      behavior: 'smooth' 
+    });
+  }}
+  animate={{
+    y: [0, -15, 15, 0],
+  }}
+  transition={{
+    duration: 1.5,  
+    ease: [0.4, 0, 0.6, 1],  
+    repeat: Infinity,
+    repeatType: "loop"
+  }}
+  whileHover={{
+    scale: 1.1,
+    transition: {
+      duration: 1,
+      ease: "easeOut"
+    }
+  }}
+  whileTap={{
+    scale: 0.95
+  }}
+>
+  <FaArrowUp />
+</motion.button>
       </div>
     </footer>
   )
