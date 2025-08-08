@@ -1,16 +1,16 @@
 import * as React from "react"  
 import { Button } from "../ui/button"
-import { Input } from "@/components/ui/input"
+import { Input } from "../ui/input"
 import { Label } from "../ui/label"
-import { Switch } from "@/components/ui/switch"
-import { Textarea } from "@/components/ui/textarea"
+import { Switch } from "../ui/switch"
+import { Textarea } from "../ui/textarea"
 import { motion, useInView } from "framer-motion";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/components/ui/tooltip"
+} from "../ui/tooltip"
 import { Facebook, Instagram, Linkedin, Moon, Send, Sun, Twitter } from "lucide-react"
 import FloatingElement from "./FloatingElement"
 import { FaArrowUp } from "react-icons/fa";
