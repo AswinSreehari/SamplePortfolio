@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { HoveredLink, Menu, MenuItem, ProductItem } from "../ui/navbar-menu";
 import { cn } from "@/lib/utils";
 import logo from "../../assets/Images/KPMG_Logo.png";
@@ -9,16 +9,65 @@ import { IoMdClose } from "react-icons/io";
 
 const FloatingNavbar = ({ className }) => {
   const [active, setActive] = useState(null);
-  const [menuOpen, setMenuOpen] = useState(false); // Add this state for menu toggle
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
+
+  // Scroll function to handle navigation - matches your App.js section IDs
+  const scrollToSection = (sectionId) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ 
+        behavior: "smooth",
+        block: "start",
+        inline: "nearest"
+      });
+    } else {
+      console.warn(`Section with id "${sectionId}" not found`);
+    }
+  };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      
+      if (currentScrollY < 20) {
+        setIsVisible(true);
+      }
+      else if (currentScrollY > lastScrollY && !isHovered && !menuOpen) {
+        setIsVisible(false);
+      } else if (currentScrollY < lastScrollY || isHovered) {
+        setIsVisible(true);
+      }
+      
+      setLastScrollY(currentScrollY);
+    };
+
+    let ticking = false;
+    const throttledHandleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          handleScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', throttledHandleScroll);
+    
+    return () => window.removeEventListener('scroll', throttledHandleScroll);
+  }, [lastScrollY, isHovered, menuOpen]);
 
   // Animation variants for the sliding menu
   const menuVariants = {
     hidden: {
-      x: "100%", // Start completely off-screen to the right
+      x: "100%",
       opacity: 0,
     },
     visible: {
-      x: 0, // Slide to normal position
+      x: 0,
       opacity: 1,
       transition: {
         type: "spring",
@@ -28,7 +77,7 @@ const FloatingNavbar = ({ className }) => {
       }
     },
     exit: {
-      x: "100%", // Slide back off-screen to the right
+      x: "100%",
       opacity: 0,
       transition: {
         type: "spring",
@@ -39,44 +88,68 @@ const FloatingNavbar = ({ className }) => {
     }
   };
 
+  // Animation variants for navbar visibility
+  const navbarVariants = {
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.3,
+        ease: "easeOut"
+      }
+    },
+    hidden: {
+      y: -100,
+      opacity: 0,
+      transition: {
+        duration: 0.3,
+        ease: "easeIn"
+      }
+    }
+  };
+
   return (
     <>
-      <div
+      <motion.div
         className={cn(
-          "relative top-5 inset-x-0 max-w-7xl mx-auto z-50",
+          "fixed top-5 inset-x-0 max-w-7xl mx-auto z-50",
           className
         )}
+        variants={navbarVariants}
+        animate={isVisible ? "visible" : "hidden"}
+        onMouseEnter={() => {
+          setIsHovered(true);
+          setIsVisible(true);
+        }}
+        onMouseLeave={() => setIsHovered(false)}
       >
         <div className="flex items-center justify-between w-full px-6 py-0 bg-white/10 backdrop-blur-md rounded-full border border-white/20">
-          {/* Logo on the left */}
           <div className="flex items-center">
             <img
               src={logo}
               alt="Company Logo"
               className="h-15 w-auto cursor-pointer"
-              onClick={() => (window.location.href = "/")}
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} // Scroll to top for home
             />
           </div>
 
           {/* Menu items on the right side - hide on mobile */}
-          <div className="hidden md:flex items-center text-white space-x-4 text-2xl [&_*]:text-white [&_*]:!text-white">
+          <div className="hidden md:flex items-center text-white space-x-4 text-2xl [&_*]:text-gray-400">
             <Menu setActive={setActive} className="text-white text-2xl text-bold">
               <MenuItem
                 item="Home"
-                className="text-white hover:text-white"
+                className="text-white hover:[&_*]:text-white transition-all duration-300 hover:scale-105 hover:drop-shadow-lg cursor-pointer"
+                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
               ></MenuItem>
               <MenuItem
-                item="Focus area"
-                className="text-white button hover:text-white"
-                onClick={() => {
-                  console.log("Focus Clicked!!!");
-                  const element = document.getElementById("focus-area");
-                  element?.scrollIntoView({ behavior: "smooth" });
-                }}
+                item="Focus Area"
+                className="text-white button hover:[&_*]:text-white transition-all duration-300 hover:scale-105 hover:drop-shadow-lg cursor-pointer"
+                onClick={() => scrollToSection("focus-text")}
               ></MenuItem>
               <MenuItem
                 item="Solutions"
-                className="text-white hover:text-white"
+                className="text-white hover:[&_*]:text-white transition-all duration-300 hover:scale-105 hover:drop-shadow-lg cursor-pointer"
+                onClick={() => scrollToSection("Solution-section")}
               ></MenuItem>
             </Menu>
           </div>
@@ -91,7 +164,7 @@ const FloatingNavbar = ({ className }) => {
             </button>
           </div>
         </div>
-      </div>
+      </motion.div>
 
       {/* Sliding Menu Overlay */}
       <AnimatePresence>
@@ -103,10 +176,10 @@ const FloatingNavbar = ({ className }) => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               className="fixed inset-0 bg-black/50 z-40"
-              onClick={() => setMenuOpen(false)} // Close menu when clicking outside
+              onClick={() => setMenuOpen(false)}
             />
             
-            {/* Sliding menu panel */}
+            {/*---------------------------- Sliding menu panel ------------------------------------------------------*/}
             <motion.div
               variants={menuVariants}
               initial="hidden"
@@ -120,7 +193,11 @@ const FloatingNavbar = ({ className }) => {
                   <img
                     src={logo}
                     alt="Company Logo"
-                    className="h-12 w-auto"
+                    className="h-12 w-auto cursor-pointer"
+                    onClick={() => {
+                      window.scrollTo({ top: 0, behavior: 'smooth' });
+                      setMenuOpen(false);
+                    }}
                   />
                   <button
                     onClick={() => setMenuOpen(false)}
@@ -130,74 +207,61 @@ const FloatingNavbar = ({ className }) => {
                   </button>
                 </div>
 
-                {/* Menu items */}
+                {/* Menu items with scroll functionality */}
                 <div className="flex-1 p-6">
                   <nav className="space-y-6">
-                    <motion.a
-                      href="/Contacts"
-                      className="block text-white text-xl font-medium hover:text-gray-300 transition-colors"
-                      onClick={() => setMenuOpen(false)}
-                      whileHover={{ x: 10 }}
-                      transition={{ type: "spring", stiffness: 400, damping: 25 }}
-                    >
-                      Contacts
-                    </motion.a>
-                    <motion.a
-                      href="/Contacts"
-                      className="block text-white text-xl font-medium hover:text-gray-300 transition-colors"
-                      onClick={() => setMenuOpen(false)}
+                     
+                    
+                    <motion.button
+                      className="block text-white text-xl font-medium hover:text-gray-300 transition-colors w-full text-left"
+                      // onClick={() => {
+                      //   scrollToSection("focus-text");
+                      //   setMenuOpen(false);
+                      // }}
                       whileHover={{ x: 10 }}
                       transition={{ type: "spring", stiffness: 400, damping: 25 }}
                     >
                       Vision
-                    </motion.a>
+                    </motion.button>
                     
-                    {/* <motion.button
+                    <motion.button
+                      className="block text-white text-xl font-medium hover:text-gray-300 transition-colors w-full text-left"
+                      // onClick={() => {
+                      //   scrollToSection("Solution-section");
+                      //   setMenuOpen(false);
+                      // }}
+                      whileHover={{ x: 10 }}
+                      transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                    >
+                      Projects
+                    </motion.button>
+                    
+                    <motion.button
                       className="block text-white text-xl font-medium hover:text-gray-300 transition-colors w-full text-left"
                       onClick={() => {
-                        console.log("Focus Clicked!!!");
-                        const element = document.getElementById("focus-area");
-                        element?.scrollIntoView({ behavior: "smooth" });
+                        // Scroll to Footer since you don't have a specific contact section
+                        const footerElement = document.querySelector('footer') || document.getElementById('contact');
+                        if (footerElement) {
+                          footerElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        } else {
+                          // Scroll to bottom of page if no footer found
+                          window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+                        }
                         setMenuOpen(false);
                       }}
                       whileHover={{ x: 10 }}
                       transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                      onClick={() => {
+                        scrollToSection("contact-section");
+                        setMenuOpen(false);
+                      }}
                     >
-                      Focus Area
-                    </motion.button> */}
-                    
-                    <motion.a
-                      href="/solutions"
-                      className="block text-white text-xl font-medium hover:text-gray-300 transition-colors"
-                      onClick={() => setMenuOpen(false)}
-                      whileHover={{ x: 10 }}
-                      transition={{ type: "spring", stiffness: 400, damping: 25 }}
-                    >
-                      Solutions
-                    </motion.a>
-                    
-                    <motion.a
-                      href="/contact"
-                      className="block text-white text-xl font-medium hover:text-gray-300 transition-colors"
-                      onClick={() => setMenuOpen(false)}
-                      whileHover={{ x: 10 }}
-                      transition={{ type: "spring", stiffness: 400, damping: 25 }}
-                    >
-                      Contacts
-                    </motion.a>
-                    <motion.a
-                      href="/Vision"
-                      className="block text-white text-xl font-medium hover:text-gray-300 transition-colors"
-                      onClick={() => setMenuOpen(false)}
-                      whileHover={{ x: 10 }}
-                      transition={{ type: "spring", stiffness: 400, damping: 25 }}
-                    >
-                      Vision
-                    </motion.a>
+                      Contact
+                    </motion.button>
                   </nav>
                 </div>
 
-                {/* Footer section (optional) */}
+                {/* Footer section */}
                 <div className="p-6 border-t border-white/20">
                   <p className="text-white/70 text-sm">
                     © 2025 KPMG. All rights reserved.

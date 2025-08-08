@@ -12,7 +12,7 @@ const App = () => {
   const [loading, setLoading] = useState(true); 
 
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 2000);
+    const timer = setTimeout(() => setLoading(false), 5000);
     return () => clearTimeout(timer);
   }, []);
 
@@ -26,11 +26,18 @@ const App = () => {
         }}
       >
         <HeroSection />
+        <div id="Focus-area-section">
         <FocusAreaSection />
+        </div>
+        <div id="Solution-section">
         <ProjectListSection />
+        </div>
       </div>
       {/* <FloatingElement /> */}
+
+      <div id="contact-section">
       <Footer />
+      </div>
 
       {/* Loader overlay: Shows on top until loading is false */}
       {loading && (

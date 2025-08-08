@@ -12,7 +12,7 @@ const TextSection = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setAnimationReady(true);
-    }, 3000); 
+    }, 6000); 
 
     return () => clearTimeout(timer);
   }, []);
@@ -55,7 +55,7 @@ const TextSection = () => {
   return (
     <div
       ref={sectionRef}
-      className="relative h-[120vh] top-0 pt-0 w-full flex items-center justify-center overflow-hidden"
+      className="relative h-[120vh] top-15 pt-0 w-full flex items-center justify-center overflow-hidden"
     >
       {/* Spline Scene as Background */}
       <div className="absolute inset-0 w-full h-full">
