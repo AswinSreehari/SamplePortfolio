@@ -1,5 +1,4 @@
 import React from "react";
-import { TextReveal } from "@/components/magicui/text-reveal";
 import ScrollVideoShader from "./ScrollVideoShader";
 import EnterpriseInnovation from "./EnterpriseInnovation/EnterpriseInnovation";
 import CustomerEngagement from "./CustomerEngagement/CustomerEngagement";
@@ -59,15 +58,4 @@ const FocusAreaSection = () => {
 
 export default FocusAreaSection;
 
-{
-  /* <TextReveal> Focus Areas</TextReveal>
-{/* <CustomerEngagement /> */
-}
-
-{
-  /* <ScrollVideoShader
-videoSrc="/src/assets/Videos/desktop.mp4"
-className="bg-gradient-to-b from-black to-gray-900"
-containerHeight="250vh"  
-/> */
-}
+ 
