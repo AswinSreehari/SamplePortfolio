@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { HoveredLink, Menu, MenuItem, ProductItem } from "../ui/navbar-menu";
 import { cn } from "@/lib/utils";
-import logo from "../../assets/Images/KPMG_Logo.png";
+import logo from "../../assets/images/KPMG_logo.png";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { motion, AnimatePresence } from "framer-motion"; 
 import { IoMdClose } from "react-icons/io";
