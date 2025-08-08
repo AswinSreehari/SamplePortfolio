@@ -1,10 +1,10 @@
 import React, { useRef, useEffect, useState } from "react";
 import { motion, useInView } from "framer-motion";
-import ThreeDCard from "@/Components/ThreeDCard/ThreeDCard";
+import ThreeDCard from "../../ThreeDCard/ThreeDCard";
 // import CometCard from "@/Components/CometCard";
 import CustomerImage from "../../../assets/Images/1.png";
-import BlurTextElement from "@/Components/BlurTextElement";
-import ButtonComponent from "@/Components/ButtonComponent/ButtonComponent";
+import BlurTextElement from "../../BlurTextElement";
+import ButtonComponent from "../../ButtonComponent/ButtonComponent";
 
 const CustomerEngagement = () => {
   // Delayed animation states

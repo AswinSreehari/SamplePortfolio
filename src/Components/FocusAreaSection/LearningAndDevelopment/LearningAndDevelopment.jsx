@@ -2,9 +2,9 @@
 import React, { useRef, useEffect, useState } from "react";
 import { CardBody, CardContainer, CardItem } from "../../ui/3d-card";
 import ThreeDCard from "../../ThreeDCard/ThreeDCard";
-import ButtonComponent from "@/Components/ButtonComponent/ButtonComponent";
+import ButtonComponent from "../../ButtonComponent/ButtonComponent";
 import Image from "../../../assets/Images/4.png";
-import BlurTextElement from "@/Components/BlurTextElement";
+import BlurTextElement from "../../BlurTextElement";
 import { motion, useInView } from "framer-motion";
 
 const LearningAndDevelopment = () => {
