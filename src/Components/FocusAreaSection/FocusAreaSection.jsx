@@ -7,8 +7,7 @@ import EmployeeExperience from "./EmployeeExperience/EmployeeExperience";
 import KnowledgeManagement from "./KnowledgeManagement/KnowledgeManagement";
 import LearningAndDevelopment from "./LearningAndDevelopment/LearningAndDevelopment";
 import bgLines from "../../assets/svg/file.svg";
-import VideoElement from "./VideoElement";
-import VideoComponent from "../VideoComponent/VideoComponent";
+ import VideoComponent from "../VideoComponent/VideoComponent";
 
 const FocusAreaSection = () => {
   return (
@@ -19,28 +18,7 @@ const FocusAreaSection = () => {
       //           backgroundColor: "transparent",
       //         }}
     >
-      {/* <ContainerScroll
-        titleComponent={
-          <>
-            <h1 className="text-4xl font-semibold mt-60 text-black dark:text-white">
-               <span className="text-4xl text-white md:text-[6rem] font-bold mt-1 leading-none">
-                Focus Areas
-              </span>
-            </h1>
-          </>
-        }
-      >
-        <img
-          src={customerImage}
-          alt="hero"
-          height={500}
-          width={1000}
-          className="mx-auto rounded-2xl object-cover h-full object-left-top"
-          draggable={false}
-        />
-      </ContainerScroll> */}
-      {/* <ScrollVideoShader /> */}
-      {/* <VideoElement /> */}
+       
 
       <VideoComponent />
 
