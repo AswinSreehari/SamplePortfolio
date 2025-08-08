@@ -1,6 +1,6 @@
 "use client";
-import React, { useState } from "react";
-import { motion } from "framer-motion";
+import React, { useState, useRef } from "react";
+import { motion, useInView } from "framer-motion";
 import image_1 from "../../assets/Images/1.png"
 import image_2 from "../../assets/Images/2.png"
 import image_3 from "../../assets/Images/3.png"
@@ -55,7 +55,7 @@ const ProjectListSection = () => {
       subtitle: "Training Platform",
       category: "WEB • DESIGN • DEVELOPMENT • 3D • WEB3",
       href: "/projects/learning-development",
-      image: image_5,
+      image: image_7,
     },
     {
       id: "digital_transformation",
@@ -98,98 +98,125 @@ const ProjectListSection = () => {
     });
   };
 
+  // Individual project component to handle viewport detection
+  const ProjectItem = ({ project, index }) => {
+    const imageRef = useRef(null);
+    const isImageInView = useInView(imageRef, { 
+      once: false, 
+      threshold: 0.3 
+    });
+
+    // Determine if this is a left or right column item
+    const isLeftColumn = index % 2 === 0;
+    
+    // Set transform origin based on column position
+    const transformOrigin = isLeftColumn ? 'center right' : 'center left';
+
+    return (
+      <motion.div
+        className="project-item block group cursor-pointer"
+        onMouseEnter={() => setHoveredProject(project.id)}
+        onMouseLeave={() => setHoveredProject(null)}
+      >
+        {/* Project Image Card - Clean with no text overlay */}
+        <motion.div 
+          ref={imageRef}
+          className="project-image-container h-[60vh] relative overflow-hidden rounded-2xl bg-white shadow-lg"
+          style={{
+            transformOrigin: transformOrigin // Set the transform origin based on column
+          }}
+          initial={{ scaleX: 0.8, opacity: 0 }} // Changed to scaleX for horizontal scaling only
+          animate={{ 
+            scaleX: isImageInView ? 1 : 0.8, // Changed to scaleX for horizontal scaling only
+            opacity: isImageInView ? 1 : 0.3
+          }}
+          transition={{ 
+            duration: 0.6,
+            ease: "easeOut"
+          }}
+        >
+          <img 
+            src={project.image} 
+            alt={project.title}
+            className="w-full h-full object-cover"
+          />
+          
+          {/* Subtle hover overlay */}
+          <motion.div
+            className="absolute inset-0 bg-black/10"
+            initial={{ opacity: 0 }}
+            animate={{ 
+              opacity: hoveredProject === project.id ? 1 : 0 
+            }}
+            transition={{ duration: 0.3 }}
+          />
+        </motion.div>
+
+        {/* Text Content Outside the Card */}
+        <div className="project-content mt-6 space-y-3">
+          {/* Category */}
+          <div className="category text-sm font-medium text-white tracking-wider">
+            {project.category}
+          </div>
+
+          {/* Project Title with Animation */}
+          <div className="project-title">
+            <motion.div
+              className="project-title-icon inline-block w-3 h-3 bg-white rounded-full mr-4"
+              animate={{
+                x: hoveredProject === project.id ? 10 : 0
+              }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
+            />
+            
+            <h3 className="inline text-4xl md:text-3xl font-bold text-white">
+              {createAnimatedText(project.title, hoveredProject === project.id)}
+            </h3>
+          </div>
+
+          {/* Subtitle - Fixed to always show white */}
+          {/* <motion.p 
+            className="text-white text-base pl-6"
+            animate={{
+              x: hoveredProject === project.id ? 10 : 0,
+              color: "#ffffff" 
+            }}
+            transition={{ duration: 0.3 }}
+          >
+            {project.subtitle}
+          </motion.p> */}
+
+          {/* Optional: View Project Link - Fixed to always show white */}
+          {/* <motion.a
+            href={project.href}
+            className="inline-flex items-center text-sm font-medium text-white hover:text-gray-300 transition-colors pl-6 mt-2"
+            animate={{
+              x: hoveredProject === project.id ? 10 : 0
+            }}
+            transition={{ duration: 0.3 }}
+          >
+            View Project
+            <motion.span 
+              className="ml-2"
+              animate={{
+                x: hoveredProject === project.id ? 5 : 0
+              }}
+              transition={{ duration: 0.3 }}
+            >
+              →
+            </motion.span>
+          </motion.a> */}
+        </div>
+      </motion.div>
+    );
+  };
+
   return (
     <div className="w-full max-w-7xl mx-auto px-6 py-12">
       {/* 2 columns layout */}
       <div className="project-list grid grid-cols-1 lg:grid-cols-2 gap-12">
-        {projects.map((project) => (
-          <motion.div
-            key={project.id}
-            className="project-item block group cursor-pointer"
-            onMouseEnter={() => setHoveredProject(project.id)}
-            onMouseLeave={() => setHoveredProject(null)}
-            whileHover={{ y: -8 }}
-            transition={{ duration: 0.3 }}
-          >
-            {/* Project Image Card - Clean with no text overlay */}
-            <motion.div 
-              className="project-image-container h-[60vh] relative overflow-hidden rounded-2xl bg-white shadow-lg"
-              whileHover={{ scale: 1.02 }}
-              transition={{ duration: 0.4 }}
-            >
-              <img 
-                src={project.image} 
-                alt={project.title}
-                className="w-full h-110 object-cover"
-              />
-              
-              {/* Subtle hover overlay */}
-              <motion.div
-                className="absolute inset-0 bg-black/10"
-                initial={{ opacity: 0 }}
-                animate={{ 
-                  opacity: hoveredProject === project.id ? 1 : 0 
-                }}
-                transition={{ duration: 0.3 }}
-              />
-            </motion.div>
-
-            {/* Text Content Outside the Card */}
-            <div className="project-content mt-6 space-y-3">
-              {/* Category */}
-              <div className="category text-sm font-medium text-white tracking-wider">
-                {project.category}
-              </div>
-
-              {/* Project Title with Animation */}
-              <div className="project-title">
-                <motion.div
-                  className="project-title-icon inline-block w-2 h-2 bg-white rounded-full mr-4"
-                  animate={{
-                    x: hoveredProject === project.id ? 10 : 0
-                  }}
-                  transition={{ duration: 0.4, ease: "easeOut" }}
-                />
-                
-                <h3 className="inline text-2xl md:text-3xl font-bold text-white">
-                  {createAnimatedText(project.title, hoveredProject === project.id)}
-                </h3>
-              </div>
-
-              {/* Subtitle */}
-              <motion.p 
-                className="text-white text-base pl-6"
-                animate={{
-                  x: hoveredProject === project.id ? 10 : 0,
-                  color: hoveredProject === project.id ? "#000000" : "#6B7280"
-                }}
-                transition={{ duration: 0.3 }}
-              >
-                {project.subtitle}
-              </motion.p>
-
-              {/* Optional: View Project Link */}
-              <motion.a
-                href={project.href}
-                className="inline-flex items-center text-sm font-medium text-white hover:text-grey-500 transition-colors pl-6 mt-2"
-                animate={{
-                  x: hoveredProject === project.id ? 10 : 0
-                }}
-                transition={{ duration: 0.3 }}
-              >
-                View Project
-                <motion.span 
-                  className="ml-2"
-                  animate={{
-                    x: hoveredProject === project.id ? 5 : 0
-                  }}
-                  transition={{ duration: 0.3 }}
-                >
-                  →
-                </motion.span>
-              </motion.a>
-            </div>
-          </motion.div>
+        {projects.map((project, index) => (
+          <ProjectItem key={project.id} project={project} index={index} />
         ))}
       </div>
     </div>
