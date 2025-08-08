@@ -1,6 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
 import { motion, useInView } from "framer-motion";
-import { ContainerScroll } from "../../ui/container-scroll-animation";
 import ThreeDCard from "@/Components/ThreeDCard/ThreeDCard";
 // import CometCard from "@/Components/CometCard";
 import CustomerImage from "../../../assets/Images/1.png";

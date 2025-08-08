@@ -2,7 +2,6 @@ import React from "react";
 import ScrollVideoShader from "./ScrollVideoShader";
 import EnterpriseInnovation from "./EnterpriseInnovation/EnterpriseInnovation";
 import CustomerEngagement from "./CustomerEngagement/CustomerEngagement";
-import { ContainerScroll } from "../ui/container-scroll-animation";
 import customerImage from "../../assets/Images/4.png";
 import EmployeeExperience from "./EmployeeExperience/EmployeeExperience";
 import KnowledgeManagement from "./KnowledgeManagement/KnowledgeManagement";
