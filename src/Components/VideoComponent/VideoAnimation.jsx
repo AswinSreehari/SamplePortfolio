@@ -3,7 +3,7 @@ import React, { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import videoSrc from "../../assets/Videos/desktop.mp4";
 
-const VideoComponent = () => {
+const VideoAnimation = () => {
   const containerRef = useRef(null);
   
   const { scrollYProgress } = useScroll({
@@ -15,7 +15,7 @@ const VideoComponent = () => {
   const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.6, 0.9, 1, 1]);
  
   return (
-    <div className="w-full h-full relative top-120   md:top-140 lg:top-200 min-h-screen flex items-center justify-center p-2 sm:p-4 md:p-6 lg:p-8">
+    <div className="w-full h-full relative top-8 sm:top-16 md:top-20 lg:top-40  min-h-screen flex items-center justify-center p-2 sm:p-4 md:p-6 lg:p-8">
       <div 
         ref={containerRef}
         className="w-full sm:w-[95%] md:w-[90%] h-[70vh] sm:h-[75vh] md:h-[80vh] flex items-center justify-center"
@@ -44,4 +44,4 @@ const VideoComponent = () => {
   );
 };
 
-export default VideoComponent;
+export default VideoAnimation;
