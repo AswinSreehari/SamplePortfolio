@@ -151,7 +151,7 @@ identity while fostering dynamic knowledge exchange and ideation.`;
             variants={leftToRightVariants}
             className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl 
                        ml-2 sm:ml-4 md:ml-25 lg:ml-20 
-                       lg:mt-10
+                       lg:mt-10  
                        relative font-6rem font-bold text-white 
                        text-shadow-lg/10 
                        text-center sm:text-left

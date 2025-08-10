@@ -15,7 +15,7 @@ const VideoAnimation = () => {
   const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.6, 0.9, 1, 1]);
  
   return (
-    <div className="w-full h-full relative top-8 sm:top-16 md:top-20 lg:top-40  min-h-screen flex items-center justify-center p-2 sm:p-4 md:p-6 lg:p-8">
+    <div className="w-full h-full relative my-8 sm:my-16 md:my-20 lg:my-40 min-h-screen flex items-center justify-center p-2 sm:p-4 md:p-6 lg:p-8">
       <div 
         ref={containerRef}
         className="w-full sm:w-[95%] md:w-[90%] h-[70vh] sm:h-[75vh] md:h-[80vh] flex items-center justify-center"
