@@ -143,8 +143,8 @@ const FloatingNavbar = ({ className }) => {
             />
           </div>
 
-          {/* Menu items on the right side - hide on mobile */}
-          <div className="hidden md:flex items-center text-white space-x-4 text-2xl [&_*]:text-gray-400">
+          {/* Menu items on the right side - hide on small and medium devices */}
+          <div className="hidden lg:flex items-center text-white space-x-4 text-2xl [&_*]:text-gray-400">
             <Menu setActive={setActive} className="text-white text-2xl text-bold">
               <MenuItem
                 item="Home"
@@ -220,6 +220,49 @@ const FloatingNavbar = ({ className }) => {
                 {/* Menu items with scroll functionality */}
                 <div className="flex-1 p-6">
                   <nav className="space-y-6">
+                    {/* Main Navigation Items - Only show on small/medium screens */}
+                    <div className="lg:hidden">
+                      <motion.button
+                        className="block text-white text-xl cursor-pointer font-medium hover:text-gray-300 transition-colors w-full text-left"
+                        onClick={() => {
+                          window.scrollTo({ top: 0, behavior: 'smooth' });
+                          setMenuOpen(false);
+                        }}
+                        whileHover={{ x: 10 }}
+                        transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                      >
+                        Home
+                      </motion.button>
+
+                      <motion.button
+                        className="block text-white text-xl cursor-pointer font-medium hover:text-gray-300 transition-colors w-full text-left mt-6"
+                        onClick={() => {
+                          scrollToSection("focus-text");
+                          setMenuOpen(false);
+                        }}
+                        whileHover={{ x: 10 }}
+                        transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                      >
+                        Focus Area
+                      </motion.button>
+
+                      <motion.button
+                        className="block text-white text-xl cursor-pointer font-medium hover:text-gray-300 transition-colors w-full text-left mt-6"
+                        onClick={() => {
+                          scrollToSection("Solution-section");
+                          setMenuOpen(false);
+                        }}
+                        whileHover={{ x: 10 }}
+                        transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                      >
+                        Solutions
+                      </motion.button>
+
+                      {/* Divider - only show on small/medium screens */}
+                      {/* <div className="border-t border-white/20 my-6"></div> */}
+                    </div>
+
+                    {/* Additional Menu Items - Show on all screens */}
                     <motion.button
                       className="block text-white text-xl cursor-pointer font-medium hover:text-gray-300 transition-colors w-full text-left"
                       whileHover={{ x: 10 }}
@@ -239,7 +282,6 @@ const FloatingNavbar = ({ className }) => {
                     <motion.button
                       className="block text-white text-xl cursor-pointer font-medium hover:text-gray-300 transition-colors w-full text-left"
                       onClick={() => {
-                        // Fixed the duplicate onClick issue
                         scrollToSection("contact-section");
                         setMenuOpen(false);
                       }}

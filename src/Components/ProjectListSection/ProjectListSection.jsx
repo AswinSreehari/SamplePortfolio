@@ -12,7 +12,6 @@ import image_8 from "../../assets/Images/8.png"
 import image_9 from "../../assets/Images/9.png"
 import image_10 from "../../assets/Images/10.png"
 
-
 const ProjectListSection = () => {
   const [hoveredProject, setHoveredProject] = useState(null);
 
@@ -115,7 +114,7 @@ const ProjectListSection = () => {
 
     return (
       <motion.div
-        className="project-item block group cursor-pointer"
+        className="project-item block group cursor-pointer sm:mt-30"
         onMouseEnter={() => setHoveredProject(project.id)}
         onMouseLeave={() => setHoveredProject(null)}
       >
@@ -174,53 +173,19 @@ const ProjectListSection = () => {
               {createAnimatedText(project.title, hoveredProject === project.id)}
             </h3>
           </div>
-
-          {/* Subtitle - Fixed to always show white */}
-          {/* <motion.p 
-            className="text-white text-base pl-6"
-            animate={{
-              x: hoveredProject === project.id ? 10 : 0,
-              color: "#ffffff" 
-            }}
-            transition={{ duration: 0.3 }}
-          >
-            {project.subtitle}
-          </motion.p> */}
-
-          {/* Optional: View Project Link - Fixed to always show white */}
-          {/* <motion.a
-            href={project.href}
-            className="inline-flex items-center text-sm font-medium text-white hover:text-gray-300 transition-colors pl-6 mt-2"
-            animate={{
-              x: hoveredProject === project.id ? 10 : 0
-            }}
-            transition={{ duration: 0.3 }}
-          >
-            View Project
-            <motion.span 
-              className="ml-2"
-              animate={{
-                x: hoveredProject === project.id ? 5 : 0
-              }}
-              transition={{ duration: 0.3 }}
-            >
-              →
-            </motion.span>
-          </motion.a> */}
         </div>
       </motion.div>
     );
   };
 
   return (
-    <div className=" relative bottom-20 w-full max-w-7xl mx-auto px-6 py-12">
+    <div className="relative top-20 sm:top-16 md:top-8 lg:-top-50 w-full max-w-7xl mx-auto px-6 py-12">
       {/* 2 columns layout */}
       <div className="project-list grid grid-cols-1 lg:grid-cols-2 gap-12">
         {projects.map((project, index) => (
           <ProjectItem key={project.id} project={project} index={index} />
         ))}
       </div>
-
     </div>
   );
 };

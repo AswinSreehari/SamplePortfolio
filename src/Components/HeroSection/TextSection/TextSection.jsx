@@ -69,12 +69,12 @@ const TextSection = () => {
           initial="hidden"
           animate={shouldAnimate ? "visible" : "hidden"}
           transition={{ duration: 1, ease: "easeOut" }}
-          className="text-4xl mb-6 pl-5 text-shadow-lg/10"
+          className="text-2xl md:text-4xl lg:text-4xl xl:text-5xl mb-6 pl-5 text-shadow-lg/10"
         >
           Welcome to KPMG
         </motion.h2>
         
-         <div className="text-[8vh] font-medium text-center w-full flex flex-wrap justify-center items-center gap-4">
+         <div className="text-2xl md:text-4xl lg:text-4xl font-medium text-center w-full flex flex-wrap justify-center items-center gap-4">
           <motion.span
             variants={intelligentVariants}
             initial="hidden"

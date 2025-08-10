@@ -7,7 +7,7 @@ import Image from "../../assets/Images/4.png"
 const ThreeDCard = ({ headingText, imageSrc }) => {
   return (
     <div>
-      <CardContainer className="inter-var">
+      <CardContainer className="inter-var sm:h-20">
         <CardBody className="bg-white relative group/card shadow-lg/10  dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] dark:bg-black  w-auto sm:w-[30rem] h-auto rounded-xl p-6    ">
           <CardItem
             translateZ="50"
@@ -15,13 +15,7 @@ const ThreeDCard = ({ headingText, imageSrc }) => {
           >
             {headingText}
           </CardItem>
-          {/* <CardItem
-            as="p"
-            translateZ="60"
-            className="text-neutral-500 text-sm max-w-sm mt-2 dark:text-neutral-300"
-          >
-            Hover over this card to unleash the power of CSS perspective
-          </CardItem> */}
+          
           <CardItem translateZ="150" className="w-full mt-4 ">
             <img
               src={Image}

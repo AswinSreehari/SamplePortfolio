@@ -18,7 +18,8 @@ const EnterpriseInnovation = () => {
   // Delayed animation states
   const [animateHeading, setAnimateHeading] = useState(false);
   const [animateButton, setAnimateButton] = useState(false);
-  const [animateCard, setAnimateCard] = useState(false);
+  const [animateMobileCard, setAnimateMobileCard] = useState(false);
+  const [animateDesktopCard, setAnimateDesktopCard] = useState(false);
 
   const headingRef = useRef(null);
   const isHeadingInView = useInView(headingRef, {
@@ -32,10 +33,18 @@ const EnterpriseInnovation = () => {
     threshold: 0.5, // Trigger when 50% visible
   });
 
-  const cardRef = useRef(null);
-  const isCardInView = useInView(cardRef, {
+  // Separate refs for mobile and desktop cards
+  const mobileCardRef = useRef(null);
+  const desktopCardRef = useRef(null);
+
+  const isMobileCardInView = useInView(mobileCardRef, {
     once: true,
-    threshold: 0.5, // Trigger when 50% visible
+    threshold: 0.5,
+  });
+
+  const isDesktopCardInView = useInView(desktopCardRef, {
+    once: true,
+    threshold: 0.5,
   });
 
   // Delay heading animation
@@ -58,23 +67,31 @@ const EnterpriseInnovation = () => {
     }
   }, [isButtonInView]);
 
-  // Delay card animation
+  // Mobile card animation
   useEffect(() => {
-    if (isCardInView) {
+    if (isMobileCardInView) {
       const timer = setTimeout(() => {
-        setAnimateCard(true);
-      }, 200); // 200ms delay
+        setAnimateMobileCard(true);
+      }, 200);
       return () => clearTimeout(timer);
     }
-  }, [isCardInView]);
+  }, [isMobileCardInView]);
+
+  // Desktop card animation
+  useEffect(() => {
+    if (isDesktopCardInView) {
+      const timer = setTimeout(() => {
+        setAnimateDesktopCard(true);
+      }, 200);
+      return () => clearTimeout(timer);
+    }
+  }, [isDesktopCardInView]);
 
   useEffect(() => {
     if (isFocusView) {
-      addingAnimation();
+      // addingAnimation(); // Uncomment if needed
     }
   }, [isFocusView]);
-
-   
 
   const text = `Interactive 3D platforms to drive enterprise-wide innovation,
 collaboration, and engagement. From showcasing solutions and delivering
@@ -82,14 +99,14 @@ impactful executive briefings to enabling real-time co-creation across
 teams and stakeholders, these experiences are designed to reflect brand
 identity while fostering dynamic knowledge exchange and ideation.`;
 
-  // Animation variants for the heading and button (left to right)
+  // Animation variants for the heading and button (left to right) - responsive
   const leftToRightVariants = {
     hidden: {
       x: -100, // Start 100px to the left
       opacity: 0,
     },
     visible: {
-      x: 30, // Move 30px to the right of original position
+      x: 0, // No offset for mobile, 30px for larger screens
       opacity: 1,
       transition: {
         duration: 1,
@@ -100,14 +117,14 @@ identity while fostering dynamic knowledge exchange and ideation.`;
     },
   };
 
-  // Animation variants for the card (right to left)
+  // Animation variants for the card (right to left) - responsive
   const rightToLeftVariants = {
     hidden: {
       x: 100, // Start 100px to the right
       opacity: 0,
     },
     visible: {
-      x: -30, // Move -30px to the left of original position
+      x: 0, // No offset for mobile, -30px for larger screens
       opacity: 1,
       transition: {
         duration: 1,
@@ -120,36 +137,90 @@ identity while fostering dynamic knowledge exchange and ideation.`;
 
   return (
     <div>
-      <div id="focus-text" className="flex flex-row justify-between min-h-screen mt-60">
-        <div className="flex flex-col  ">
+      <div
+        id="focus-text"
+        className="flex lg:flex-row flex-col justify-between min-h-screen mt-8 sm:mt-12 md:mt-20 lg:mt-100 px-4 sm:px-6 md:px-8"
+      >
+        {/* Main content container with reduced gaps for small devices */}
+        <div className="flex flex-col lg:order-1 order-2 gap-1 sm:gap-2 md:gap-6 lg:gap-8">
+          {/* Heading - Order 1 for all screens */}
           <motion.h4
             ref={headingRef}
             initial="hidden"
-            animate={animateHeading ? "visible" : "hidden"}  
+            animate={animateHeading ? "visible" : "hidden"}
             variants={leftToRightVariants}
-            className="text-6xl   relative font-6rem font-bold text-white top-30 m-5 ml-15 text-shadow-lg/10"
+            className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl 
+                       ml-2 sm:ml-4 md:ml-25 lg:ml-20 
+                       lg:mt-10
+                       relative font-6rem font-bold text-white 
+                       text-shadow-lg/10 
+                       text-center sm:text-left
+                       order-1"
           >
             Enterprise Innovation
           </motion.h4>
-          <div className="text-2xl w-200 m-5 top-35 text-white relative ml-22 font-[lato, sans] font-light">
+
+          {/* Mobile Card - Fixed visibility and separate ref */}
+          <motion.div
+            ref={mobileCardRef}
+            initial="hidden"
+            animate={animateMobileCard ? "visible" : "hidden"}
+            variants={rightToLeftVariants}
+            className="block lg:hidden 
+                       w-full sm:w-80 md:w-full 
+                       mx-auto sm:mx-auto md:ml-10 
+                       relative 
+                       text-shadow-sm 
+                       order-2 
+                       scale-75 sm:scale-90 md:scale-100"
+          >
+            <ThreeDCard
+              headingText={"Virtual Innovation Center"}
+              imageSrc={Image}
+            />
+          </motion.div>
+
+          {/* Text content - Order 3 */}
+          <div
+            className="text-lg sm:text-xl md:text-3xl lg:text-4xl 
+                         w-full sm:w-full md:w-200 lg:w-230 
+                         mx-2 sm:mx-4 md:ml-30 lg:ml-20 
+                         relative 
+                         text-white 
+                         font-[lato, sans] font-light 
+                         order-3
+                         px-2 sm:px-0
+                         md:top-5 
+                          
+                         "
+          >
             <BlurText text={text} />
           </div>
+
+          {/* Button - Order 4 */}
           <motion.div
             ref={buttonRef}
             initial="hidden"
-            animate={animateButton ? "visible" : "hidden"} // Use delayed state
+            animate={animateButton ? "visible" : "hidden"}
             variants={leftToRightVariants}
-            className="mt-5 relative left-15 top-30"
+            className="relative 
+                       left-2 sm:left-4 md:left-15 
+                       ml-2 sm:ml-4 md:ml-10 lg:ml-5
+                       md:top-0   
+                       order-4
+                       flex justify-center sm:justify-start"
           >
             <ButtonComponent buttonText={"View Solutions "} />
           </motion.div>
         </div>
+
+        {/* Desktop Card - Separate ref */}
         <motion.div
-          ref={cardRef}
+          ref={desktopCardRef}
           initial="hidden"
-          animate={animateCard ? "visible" : "hidden"}  
+          animate={animateDesktopCard ? "visible" : "hidden"}
           variants={rightToLeftVariants}
-          className="w-50% relative top-15 text-shadow-sm right-20"
+          className="lg:block hidden w-50% relative top-15 text-shadow-sm right-20 lg:order-2"
         >
           <ThreeDCard
             headingText={"Virtual Innovation Center"}

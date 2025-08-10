@@ -13,15 +13,15 @@ const VideoComponent = () => {
  
   const scale = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0.5, 0.9, 1, 1]);
   const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.6, 0.9, 1, 1]);
-
+ 
   return (
-    <div className="w-full relative top-200 min-h-screen flex items-center justify-center p-8">
+    <div className="w-full h-full relative top-120   md:top-140 lg:top-200 min-h-screen flex items-center justify-center p-2 sm:p-4 md:p-6 lg:p-8">
       <div 
         ref={containerRef}
-        className="w-[90%] h-[80vh] flex items-center justify-center"
+        className="w-full sm:w-[95%] md:w-[90%] h-[70vh] sm:h-[75vh] md:h-[80vh] flex items-center justify-center"
       >
         <motion.div 
-          className="w-full h-full rounded-2xl overflow-hidden shadow-lg"
+          className="w-full h-full rounded-lg sm:rounded-xl md:rounded-2xl overflow-hidden shadow-lg"
           style={{ 
             scale,
             opacity,

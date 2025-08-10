@@ -139,18 +139,6 @@ const Footer = () => {
                 </Tooltip>
               </TooltipProvider>
             </div>
-            {/* <div className="flex items-center space-x-2">
-              <Sun className="h-4 w-4" />
-              <Switch
-                id="dark-mode"
-                checked={isDarkMode}
-                onCheckedChange={setIsDarkMode}
-              />
-              <Moon className="h-4 w-4" />
-              <Label htmlFor="dark-mode" className="sr-only">
-                Toggle dark mode
-              </Label>
-            </div> */}
           </div>
         </div>
         <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t pt-8 text-center md:flex-row">
@@ -169,39 +157,48 @@ const Footer = () => {
             </a>
           </nav>
         </div>
+
+        {/* Scroll to top button - positioned within footer */}
         <motion.button 
-  className="shadow-[inset_0_0_0_2px_#616467] cursor-pointer absolute right-7 bottom-0 z-5   text-black px-4 py-4 rounded-full tracking-widest uppercase font-bold bg-transparent hover:bg-black hover:text-white dark:text-neutral-200 transition duration-200"
-  onClick={() => {
-    window.scrollTo({ 
-      top: 0, 
-      behavior: 'smooth' 
-    });
-  }}
-  animate={{
-    y: [0, -15, 15, 0],
-  }}
-  transition={{
-    duration: 1.5,  
-    ease: [0.4, 0, 0.6, 1],  
-    repeat: Infinity,
-    repeatType: "loop"
-  }}
-  whileHover={{
-    scale: 1.1,
-    transition: {
-      duration: 1,
-      ease: "easeOut"
-    }
-  }}
-  whileTap={{
-    scale: 0.95
-  }}
->
-  <FaArrowUp />
-</motion.button>
+          className="shadow-[inset_0_0_0_2px_#616467] cursor-pointer 
+                     absolute 
+                     right-4 sm:right-7 
+                     -bottom-4 sm:-bottom-6 
+                     z-10 
+                     text-black px-4 py-4 rounded-full tracking-widest uppercase font-bold 
+                     bg-transparent hover:bg-black hover:text-white dark:text-neutral-200 
+                     transition duration-200"
+          onClick={() => {
+            window.scrollTo({ 
+              top: 0, 
+              behavior: 'smooth' 
+            });
+          }}
+          animate={{
+            y: [0, -15, 15, 0],
+          }}
+          transition={{
+            duration: 1.5,  
+            ease: [0.4, 0, 0.6, 1],  
+            repeat: Infinity,
+            repeatType: "loop"
+          }}
+          whileHover={{
+            scale: 1.1,
+            transition: {
+              duration: 1,
+              ease: "easeOut"
+            }
+          }}
+          whileTap={{
+            scale: 0.95
+          }}
+        >
+          <FaArrowUp />
+        </motion.button>
       </div>
     </footer>
   )
 }
 
-export default  Footer 
+export default Footer
