@@ -3,7 +3,7 @@ import VideoAnimation from './VideoAnimation'
 
 const VideoComponent = () => {
   return (
-    <div className='relative h-[100vh] w-full bottom-130'>
+    <div className='relative h-[100vh] sm:top-30 w-full bottom-130'>
         <VideoAnimation />
     </div>
   )
