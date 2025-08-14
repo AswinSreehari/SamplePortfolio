@@ -282,7 +282,8 @@ const FloatingNavbar = ({ className }) => {
                     <motion.button
                       className="block text-white text-xl cursor-pointer font-medium hover:text-gray-300 transition-colors w-full text-left"
                       onClick={() => {
-                        scrollToSection("contact-section");
+                        // scrollToSection("contact-section");
+                        scrollToSection("ContactSection");
                         setMenuOpen(false);
                       }}
                       whileHover={{ x: 10 }}

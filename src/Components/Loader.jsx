@@ -35,16 +35,31 @@ const Loader = () => {
     return () => clearInterval(interval);
   }, []);
 
-  // Generate floating particles
-  const particles = Array.from({ length: 20 }, (_, i) => (
+  // Static positioned particles with glow effect - Now 40 particles!
+  const staticParticlePositions = [
+    { left: 10, top: 20 }, { left: 20, top: 40 }, { left: 30, top: 60 }, { left: 40, top: 80 },
+    { left: 50, top: 10 }, { left: 60, top: 30 }, { left: 70, top: 50 }, { left: 80, top: 70 },
+    { left: 90, top: 90 }, { left: 15, top: 25 }, { left: 25, top: 45 }, { left: 35, top: 65 },
+    { left: 45, top: 85 }, { left: 55, top: 15 }, { left: 65, top: 35 }, { left: 75, top: 55 },
+    { left: 85, top: 75 }, { left: 95, top: 95 }, { left: 12, top: 22 }, { left: 22, top: 42 },
+    // Additional 20 particles for more density
+    { left: 5, top: 10 }, { left: 18, top: 55 }, { left: 33, top: 30 }, { left: 48, top: 75 },
+    { left: 62, top: 20 }, { left: 77, top: 60 }, { left: 89, top: 15 }, { left: 96, top: 33 },
+    { left: 7, top: 48 }, { left: 23, top: 78 }, { left: 38, top: 12 }, { left: 52, top: 50 },
+    { left: 67, top: 85 }, { left: 80, top: 25 }, { left: 91, top: 68 }, { left: 13, top: 68 },
+    { left: 26, top: 93 }, { left: 41, top: 38 }, { left: 56, top: 18 }, { left: 71, top: 43 }
+  ];
+
+  const particles = staticParticlePositions.map((pos, i) => (
     <div
       key={i}
       className="absolute w-2 h-2 bg-blue-400 rounded-full opacity-70"
       style={{
-        left: `${Math.random() * 100}%`,
-        top: `${Math.random() * 100}%`,
-        animation: `floatParticle ${2 + Math.random() * 2}s ease-in-out infinite`,
-        animationDelay: `${Math.random() * 3}s`
+        left: `${pos.left}%`,
+        top: `${pos.top}%`,
+        animation: `glowParticle 3s ease-in-out ${i * 0.15}s infinite`,
+        boxShadow: '0 0 10px rgb(96 165 250), 0 0 20px rgb(96 165 250), 0 0 30px rgb(96 165 250)',
+        filter: 'drop-shadow(0 0 8px rgb(96 165 250))'
       }}
     />
   ));
@@ -56,12 +71,30 @@ const Loader = () => {
 
   return (
     <>
-      {/* CSS Animations */}
+      {/* CSS Animations - Added glow particle animation */}
       <style>
         {`
-          @keyframes floatParticle {
-            0%, 100% { transform: translateY(0px) scale(1); opacity: 0.7; }
-            50% { transform: translateY(-20px) scale(1.1); opacity: 1; }
+          @keyframes glowParticle {
+            0%, 100% { 
+              transform: translateY(0px) scale(1); 
+              opacity: 0.8;
+              box-shadow: 0 0 8px rgb(96 165 250), 0 0 16px rgb(96 165 250), 0 0 24px rgb(96 165 250);
+            }
+            25% { 
+              transform: translateY(-5px) scale(1.1); 
+              opacity: 1;
+              box-shadow: 0 0 12px rgb(147 197 253), 0 0 24px rgb(147 197 253), 0 0 36px rgb(147 197 253);
+            }
+            50% { 
+              transform: translateY(-10px) scale(1.2); 
+              opacity: 1;
+              box-shadow: 0 0 16px rgb(59 130 246), 0 0 32px rgb(59 130 246), 0 0 48px rgb(59 130 246);
+            }
+            75% { 
+              transform: translateY(-5px) scale(1.1); 
+              opacity: 1;
+              box-shadow: 0 0 12px rgb(147 197 253), 0 0 24px rgb(147 197 253), 0 0 36px rgb(147 197 253);
+            }
           }
           
           @keyframes spin {
@@ -101,12 +134,12 @@ const Loader = () => {
       </style>
 
       <div className="fixed inset-0 bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 flex items-center justify-center overflow-hidden">
-         <div className="absolute inset-0">
+        <div className="absolute inset-0">
           {particles}
         </div>
 
         {/* Main loading content */}
-        <div className="relative z-10 text-center  text-white max-w-lg mx-auto px-6">
+        <div className="relative z-10 text-center text-white max-w-lg mx-auto px-6">
           
           {/* Logo/Brand area */}
           <div className="mb-12">
@@ -197,13 +230,13 @@ const Loader = () => {
           </div>
 
           {/* Progress text */}
-          {progress === 100 && (
+          {/* {progress === 100 && (
             <div className="mt-6 animate-fade-in">
               <div className="text-xl font-semibold text-green-400 mb-2">
                 ✓ Ready!
               </div>
             </div>
-          )}
+          )} */}
 
         </div>
       </div>

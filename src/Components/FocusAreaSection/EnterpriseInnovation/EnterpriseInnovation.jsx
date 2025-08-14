@@ -139,7 +139,7 @@ identity while fostering dynamic knowledge exchange and ideation.`;
     <div>
       <div
         id="focus-text"
-        className="flex lg:flex-row flex-col justify-between min-h-screen mt-8 sm:mt-12 md:mt-20 lg:mt-100 px-4 sm:px-6 md:px-8"
+        className="flex lg:flex-row flex-col justify-between min-h-screen mt-8 sm:mt-12 md:mt-20 lg:mt-40 px-4 sm:px-6 md:px-8"
       >
         {/* Main content container with reduced gaps for small devices */}
         <div className="flex flex-col lg:order-1 order-2 gap-1 sm:gap-2 md:gap-6 lg:gap-8">

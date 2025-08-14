@@ -2,6 +2,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import GlobeElement from "../GlobeElement";
+import bg from "../../../assets/images/GLGB_cut.png"
 
 const TextSection = () => {
   const sectionRef = useRef(null);
@@ -50,17 +51,43 @@ const TextSection = () => {
     },
   };
 
-   const shouldAnimate = isInView && animationReady;
+  // Animation for the hyphen - scales from 0 to full size
+  const hyphenVariants = {
+    hidden: { 
+      scale: 0,
+      opacity: 0
+    },
+    visible: { 
+      scale: 1,
+      opacity: 1,
+      transition: { 
+        duration: 0.8, 
+        ease: "easeOut",
+        delay: 0.7, // Appears after text starts moving
+        type: "spring",
+        stiffness: 200,
+        damping: 15
+      }
+    },
+  };
+
+  const shouldAnimate = isInView && animationReady;
 
   return (
     <div
       ref={sectionRef}
-      className="relative h-[120vh] top-15 pt-0 w-full flex items-center justify-center overflow-hidden"
+      className="relative h-[100vh] top-15 pt-0 w-full flex items-center justify-center overflow-hidden bg-cover bg-center bg-no-repeat"
+      style={{
+        backgroundImage: `url(${bg})`,
+        WebkitMaskImage: 'linear-gradient(to top, transparent 0%, black 50%)',
+        maskImage: 'linear-gradient(to top, transparent 0%, black 50%)'
+      }}
     >
+
       {/* Spline Scene as Background */}
-      <div className="absolute inset-0 w-full h-full">
+      {/* <div className="absolute inset-0 w-full h-full">
         <GlobeElement />
-      </div>
+      </div> */}
 
       {/* Text Content Centered on Top */}
       <div className="relative z-10 text-center text-white mt-0 px-8 bottom-20 max-w-6xl">
@@ -69,21 +96,31 @@ const TextSection = () => {
           initial="hidden"
           animate={shouldAnimate ? "visible" : "hidden"}
           transition={{ duration: 1, ease: "easeOut" }}
-          className="text-2xl md:text-4xl lg:text-4xl xl:text-5xl mb-6 pl-5 text-shadow-lg/10"
+          className="text-2xl md:text-4xl lg:text-6xl xl:text-5xl mb-6 pl-5 text-shadow-lg/10"
         >
           Welcome to KPMG
         </motion.h2>
         
-         <div className="text-2xl md:text-4xl lg:text-4xl font-medium text-center w-full flex flex-wrap justify-center items-center gap-4">
+        <div className="text-2xl md:text-4xl lg:text-6xl font-medium text-center w-full flex flex-wrap justify-center items-center gap-4">
           <motion.span
             variants={intelligentVariants}
             initial="hidden"
             animate={shouldAnimate ? "visible" : "hidden"}
             className="text-shadow-lg/10"
           >
-            Intelligent Solutions -
+            Intelligent Solutions
           </motion.span>
-          {/* <span className="text-shadow-lg/10">-</span> */}
+          
+          <motion.span
+            variants={hyphenVariants}
+            initial="hidden"
+            animate={shouldAnimate ? "visible" : "hidden"}
+            className="text-shadow-lg/10 inline-block"
+            style={{ transformOrigin: "center center" }}
+          >
+            -
+          </motion.span>
+          
           <motion.span
             variants={infiniteVariants}
             initial="hidden"

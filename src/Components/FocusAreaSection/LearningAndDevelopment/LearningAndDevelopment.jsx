@@ -136,7 +136,7 @@ dynamic knowledge exchange and ideation.`;
   };
 
   return (
-    <div className="flex lg:flex-row flex-col justify-between  sm:mb-20 min-h-screen mt-30 sm:mt-30 md:mt-16 lg:mt-0 px-4 sm:px-6 md:px-8">
+    <div className="flex lg:flex-row flex-col justify-between  sm:mb-20 min-h-90 mt-30 sm:mt-30 md:mt-16 lg:mt-0 px-4 sm:px-6 md:px-8">
       
       {/* Text Content Container with reduced gaps */}
       <div className="flex flex-col lg:order-1 order-1 gap-1 sm:gap-2 md:gap-4 lg:gap-8">

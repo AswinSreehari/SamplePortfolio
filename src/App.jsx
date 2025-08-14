@@ -4,9 +4,11 @@ import HeroSection from './Components/HeroSection/HeroSection';
 import FocusAreaSection from './Components/FocusAreaSection/FocusAreaSection';
 import Footer from './Components/Footer/Footer';
 import FloatingElement from './Components/Footer/FloatingElement';
-import bg from './assets/Images/BG.png';
+// import bg from './assets/Images/BG.png';
+import bg from './assets/Images/BG_Extended_v02.png';
 import Loader from './Components/Loader';
 import ProjectListSection from './Components/ProjectListSection/ProjectListSection';
+import ContactSection from './Components/ContactSection/ContactSection';
 
 const App = () => {
   const [loading, setLoading] = useState(true); 
@@ -33,6 +35,9 @@ const App = () => {
         <div id="Solution-section">
         <ProjectListSection />
         </div>
+        {/* <div id="contactSection">
+          <ContactSection />
+        </div> */}
       </div>
       {/* <FloatingElement /> */}
 

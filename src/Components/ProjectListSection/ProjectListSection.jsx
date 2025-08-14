@@ -179,7 +179,7 @@ const ProjectListSection = () => {
   };
 
   return (
-    <div className="relative top-20 sm:top-16 md:top-8 lg:-top-50 w-full max-w-7xl mx-auto px-6 py-12">
+    <div className="relative  w-full max-w-7xl mx-auto px-6 py-12">
       {/* 2 columns layout */}
       <div className="project-list grid grid-cols-1 lg:grid-cols-2 gap-12">
         {projects.map((project, index) => (
